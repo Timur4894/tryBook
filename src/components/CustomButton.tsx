@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import colors from "../theme/colors";
 
-const CustomButton = ({ title, onPress, titleStyle, buttonSrtyle }) => {
+const CustomButton = ({ title, onPress, titleStyle, buttonSrtyle }: { title: string, onPress: () => void, titleStyle?: any, buttonSrtyle?: any }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.button, buttonSrtyle]}>
             <Text style={[styles.title, titleStyle]}>{title}</Text>
@@ -10,7 +11,7 @@ const CustomButton = ({ title, onPress, titleStyle, buttonSrtyle }) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#000',
+        backgroundColor: colors.primary,
         paddingVertical: 20,
         alignItems: 'center',
         paddingHorizontal: 20,
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontFamily: 'Jost',
-        color: '#fff',
+        color: colors.white,
     },
 });
 

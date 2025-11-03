@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from "react-native";
 import CustomTextInput from "../../components/CustomTextInput";
 import CustomButton from "../../components/CustomButton";
+import colors from "../../theme/colors";
 
 const ForgotPasswordScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -15,9 +16,9 @@ const ForgotPasswordScreen = ({navigation}) => {
          
          
             <View style={{width: '100%'}}>
-                <Text style={{fontSize: 16, fontFamily: 'Jost', color: '#666666'}}>Email</Text>
+                <Text style={{fontSize: 16, fontFamily: 'Jost', color: colors.textSecondary}}>Email</Text>
                 <CustomTextInput style={{marginBottom: 24}} placeholder="Enter your email" keyboardType="email-address" autoCapitalize="none" autoComplete="email" autoCorrect={false} autoFocus={true} value={email} onChangeText={setEmail} />
-                <Text style={{fontSize: 14, fontFamily: 'Jost', color: '#666666', alignSelf: 'center'}}>We'll send you an email to reset your password.</Text>
+                <Text style={{fontSize: 14, fontFamily: 'Jost', color: colors.textSecondary, alignSelf: 'center'}}>We'll send you an email to reset your password.</Text>
             </View>
 
                
@@ -32,15 +33,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingHorizontal: 20,
+        backgroundColor: colors.background,
     },
     title: {
         fontSize: 44,
         fontFamily: 'Jost',
+        color: colors.textPrimary,
     },
     subtitle: {
         fontSize: 34,
         fontFamily: 'Jost',
-        color: '#666666',
+        color: colors.textSecondary,
     },
 });
 

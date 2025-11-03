@@ -1,6 +1,7 @@
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet, TextInput, StyleProp, ViewStyle, KeyboardTypeOptions, AutoCapitalizeOptions, TextInputProps } from "react-native";
+import colors from "../theme/colors";
 
-const CustomTextInput = ({ style, placeholder, keyboardType, autoCapitalize, autoComplete, autoCorrect, autoFocus, value, onChangeText }: { style: StyleProp<ViewStyle>, placeholder: string, keyboardType: string, autoCapitalize: string, autoComplete: string, autoCorrect: boolean, autoFocus: boolean, value: string, onChangeText: (text: string) => void }) => {
+const CustomTextInput = ({ style, placeholder, keyboardType, autoCapitalize, autoComplete, autoCorrect, autoFocus, value, onChangeText }: { style?: StyleProp<ViewStyle>, placeholder: string, keyboardType?: KeyboardTypeOptions, autoCapitalize?: AutoCapitalizeOptions, autoComplete?: TextInputProps['autoComplete'], autoCorrect?: boolean, autoFocus?: boolean, value: string, onChangeText: (text: string) => void }) => {
     return (
         <TextInput 
             placeholder={placeholder}
@@ -19,7 +20,7 @@ const CustomTextInput = ({ style, placeholder, keyboardType, autoCapitalize, aut
 const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
-        borderColor: '#666666',
+        borderColor: colors.textSecondary,
         borderRadius: 20,
         width: '100%',
         paddingVertical: 20,

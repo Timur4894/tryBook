@@ -1,30 +1,32 @@
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Switch , Linking, Alert} from "react-native";
 import ArrowRightSvg from "../../assets/svg/ArrowRightSvg";
 import colors from "../../theme/colors";
+import { useState } from "react";
+import CustomModal from "../../components/CustomModal";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authSlice";
 
 const ProfileScreen = ({navigation}) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isSupportModalVisible, setIsSupportModalVisible] = useState(false);
 
-    const  handleSupportMail  = async () => {
-        const email = 'support@myapp.com';
-        const subject = 'Feedback about the app';
-        const body = 'Hello, I would like to share my feedback...';
-        
-        const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-        try {
-          const canOpen = await Linking.canOpenURL(url);
-          if (canOpen) {
-            await Linking.openURL(url);
-          } else {
-            Alert.alert('Error', 'Sorry, try again later');
-          }
-        } catch (error) {
-          console.error('Mail error:', error);
-        }
-      };
+    const dispatch = useDispatch();
+
+    const handleOpenModal = () => {
+        setIsModalVisible(true);
+    };
+    const handleOpenSupportModal = () => {
+        setIsSupportModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+        setIsSupportModalVisible(false);
+    };
 
     return (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <View style={styles.accountContainer}>
                     <Text style={styles.title}>Account</Text>
                     <Image source={require('../../assets/img/TestBook.jpg')} style={styles.image} />
@@ -37,7 +39,7 @@ const ProfileScreen = ({navigation}) => {
                         <Text style={styles.optionTitle}>Edit Profile</Text>
                         <ArrowRightSvg width={20} height={20} color={colors.textSecondary} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {}} style={styles.optionContainer}>
+                    <TouchableOpacity onPress={handleOpenModal} style={styles.optionContainer}>
                         <Text style={styles.optionTitle}>Change Password</Text>
                         <ArrowRightSvg width={20} height={20} color={colors.textSecondary} />
                     </TouchableOpacity>
@@ -69,7 +71,7 @@ const ProfileScreen = ({navigation}) => {
                 
 
                 <View style={styles.groupOptionContainer}>
-                    <TouchableOpacity onPress={handleSupportMail} style={styles.optionContainer}>
+                    <TouchableOpacity onPress={handleOpenSupportModal} style={styles.optionContainer}>
                         <Text style={styles.optionTitle}>Support</Text>
                         <ArrowRightSvg width={20} height={20} color={colors.textSecondary} />
                     </TouchableOpacity>
@@ -77,13 +79,33 @@ const ProfileScreen = ({navigation}) => {
                         <Text style={styles.optionTitle}>Privacy Policy</Text>
                         <ArrowRightSvg width={20} height={20} color={colors.textSecondary} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {Linking.openURL('https://www.google.com')}} style={styles.optionContainer}>
-                        <Text style={styles.optionTitle}>About "TryBook"</Text>
-                        <ArrowRightSvg width={20} height={20} color={colors.textSecondary} />
+                  
+                </View>
+                <View style={styles.groupOptionContainer}>
+                   
+                <TouchableOpacity onPress={() => {dispatch(logout())}} style={[styles.optionContainer, {justifyContent: 'center'}]}>
+                        <Text style={[styles.optionTitle, {color: 'red'}]}>Logout</Text>
+                        {/* <ArrowRightSvg width={20} height={20} color={colors.textSecondary} /> */}
                     </TouchableOpacity>
                 </View>
+
+                
             </View>
         </ScrollView>
+            <CustomModal
+                visible={isModalVisible}
+                title="Change Password"
+                mainText="We'll send you an email to reset your password"
+                onClose={handleCloseModal}
+            />
+            <CustomModal
+                visible={isSupportModalVisible}
+                title="Support"
+                mainText="If you need help, please contact us at support@myapp.com"
+                onClose={handleCloseModal}
+            />
+        </>
+        
     );
 };
 
